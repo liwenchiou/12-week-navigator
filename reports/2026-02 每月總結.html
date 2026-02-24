@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-02 每月總結 | 守護與重構</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #e2e8f0;
+        }
+
+        .mono-text {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { motion } = window.Motion;
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, color = "currentColor", size = 24, className = "" }) => {
+            useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size, color }}></i>;
+        };
+
+        const App = () => {
+            const habits = [
+                { name: "喝水 3000ml", status: [7, 7, 7, 7, 7] },
+                { name: "減少糖分", status: [7, 7, 6, 7, 7] },
+                { name: "練習英打", status: [7, 7, 7, 7, 7] },
+                { name: "閱讀不限時", status: [7, 7, 7, 7, 7] },
+                { name: "每日小結", status: [7, 7, 7, 7, 7] }
+            ];
+
+            const goals = [
+                { title: "培養運動習慣", done: true, desc: "全月評分持平，下半月重回正軌" },
+                { title: "落實十二週計畫", done: true, desc: "環境與目標清單完整定案" },
+                { title: "培養專業技能", done: true, desc: "React 基礎與 AI Skills 系統產出" },
+                { title: "培養閱讀習慣", done: true, desc: "全月達成率 100%" }
+            ];
+
+            return (
+                <div className="min-h-screen px-4 py-12 md:px-12 max-w-6xl mx-auto space-y-16">
+                    <motion.header initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center space-y-4 pt-12">
+                        <h1 className="text-sky-400 font-bold tracking-widest text-lg uppercase mono-text">Monthly Archive // 2026-02</h1>
+                        <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter">守護與重構</h2>
+                        <div className="w-24 h-1 bg-sky-500 mx-auto mt-8 rounded-full"></div>
+                    </motion.header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} className="glass p-8 rounded-3xl flex flex-col items-center justify-center space-y-6">
+                            <h3 className="text-slate-400 font-medium uppercase tracking-[0.3em] text-sm">執行評分</h3>
+                            <div className="relative flex items-center justify-center">
+                                <svg className="w-48 h-48 transform -rotate-90">
+                                    <circle cx="96" cy="96" r="88" stroke="rgba(255,255,255,0.05)" strokeWidth="12" fill="none" />
+                                    <motion.circle cx="96" cy="96" r="88" stroke="#38bdf8" strokeWidth="12" fill="none" strokeDasharray="552.9" initial={{ strokeDashoffset: 552.9 }} whileInView={{ strokeDashoffset: 552.9 * (1 - 0.874) }} transition={{ duration: 2 }} />
+                                </svg>
+                                <span className="absolute text-5xl font-black text-white mono-text">87.4%</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} className="glass p-8 rounded-3xl space-y-6">
+                            <h3 className="text-slate-400 font-medium uppercase tracking-[0.3em] text-sm">月計畫目標</h3>
+                            <div className="space-y-4">
+                                {goals.map((goal, idx) => (
+                                    <div key={idx} className="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-white/5">
+                                        <div className={`mt-1 h-6 w-6 rounded-lg flex items-center justify-center ${goal.done ? 'bg-sky-500' : 'bg-slate-700'}`}><Icon name={goal.done ? 'check' : 'minus'} size={14} color="white" /></div>
+                                        <div><p className="font-bold text-white">{goal.title}</p><p className="text-xs text-slate-400">{goal.desc}</p></div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="glass p-10 rounded-[2.5rem] space-y-10">
+                        <h3 className="text-sky-400 text-2xl font-bold flex items-center gap-3"><Icon name="activity" color="#38bdf8" /> 習慣達成趨勢</h3>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="text-slate-500 border-b border-white/5"><tr><th className="pb-4 pl-4 uppercase text-xs tracking-widest">項目</th>{['W1', 'W2', 'W3', 'W4', 'W5'].map(w => <th key={w} className="pb-4 text-center text-xs">{w}</th>)}</tr></thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {habits.map((h, i) => (
+                                        <tr key={i} className="group hover:bg-white/5"><td className="py-5 font-bold text-white pl-4 border-l-2 border-transparent group-hover:border-sky-500">{h.name}</td>{h.status.map((s, j) => <td key={j} className="py-5 text-center"><div className="inline-flex px-3 spy-1 rounded-full text-xs font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30">{s}/7</div></td>)}</tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </motion.section>
+
+                    <motion.section initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} className="glass p-12 rounded-[3.5rem] relative">
+                        <h3 className="text-pink-400 text-2xl font-bold mb-10 italic"> 深度生活回顧</h3>
+                        <div className="space-y-10 text-slate-300 leading-[1.8] text-lg font-light">
+                            <p className="first-letter:text-5xl first-letter:font-black first-letter:text-sky-400 first-letter:mr-3 first-letter:float-left">二月份的紀錄是關於守護與重塑。通過對過去生活細節的擷取，展現了在長假休閒與突發變動下的韌性。從甄嬛傳的悠閒到急診室的深夜，再到 AI 指令自動產出日誌的技術突破，這一個月我們在混亂中穩住了舵盤。</p>
+                            <p>二月底的亮點在於「技術重構習慣」。開發中的 AI Skills 系統正式投入實戰，成功將紀錄負荷轉化為對話的樂趣。這是一個在波動中學會平衡，並在代碼間尋找溫柔進化的二月。</p>
+                        </div>
+                    </motion.section>
+                </div>
+            );
+        };
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+
+</html>
