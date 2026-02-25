@@ -8,7 +8,9 @@ description: 新環境初始化導航 (New Environment Onboarding)
 
 1. **讀取靈魂文件**：主動載入並分析 `.agent/instructions.md`。
 2. **裝載技能組**：掃描並理解 `.agent/skills/` 下的所有 .md 檔案。
-3. **環境檢查**：
+3. **環境檢查 (Prerequisite Check)**：
+   - 檢查 GitHub CLI (`gh`) 是否已安裝：執行 `gh --version`。
+     - 若未安裝，主動告知使用者：「未偵測到 GitHub CLI，自動化 PR 功能將無法運作。建議執行 `brew install gh` 進行安裝。」
    - 檢查 `data/` 目錄是否存在，若無則依結構建立。
    - 檢查 `.gitignore` 是否已正確配置。
 4. **現狀彙整**：

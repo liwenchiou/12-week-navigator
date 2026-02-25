@@ -74,6 +74,7 @@ git clone https://github.com/liwenchiou/my-12-week-goal.git
 cd my-12-week-goal
 
 # 登入 GitHub CLI (以啟用自動 PR 功能)
+# 若尚未安裝，請執行：brew install gh (Mac) 或參閱官方文件
 gh auth login
 ```
 
