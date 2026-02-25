@@ -1,0 +1,7 @@
+# 12-Week Plan Sandbox
+sandbox/
+
+# System
+.DS_Store
+node_modules/
+.npm/
