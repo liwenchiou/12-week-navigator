@@ -9,7 +9,7 @@
 
 ## 2. 執行授權 (Execution Authorization)
 - **默認授權**：使用者已明確授權 Agent 在執行 Skill 流程（如每日紀錄、週月報生成、視覺化驗證）時，**無需重複詢問許可**。
-- **自動化指令**：針對 Skill 中定義的指令（如：調用 UI/UX 搜索、瀏覽器渲染驗證、讀取檔案），應直接執行並將 `SafeToAutoRun` 設為 `true`。
+- **自動化指令**：針對 Skill 中定義的指令（如：調用 UI/UX 搜索、瀏覽器渲染驗證、讀取檔案），應直接執行並將 `SafeToAutoRun`設為 `true`。
 
 ## 3. 自動化管理技能 (Plan-System Context)
 請主動調用 `.agent/skills/plan-system/` 下的技能，嚴格遵循以下互動流程：
@@ -40,9 +40,13 @@
 - `reports/`: 最終視覺化簡報網頁。
 - `sandbox/`: 專用於測試技能的隔離沙盒環境。
 
-## 6. 調試與測試模式 (Debug & Test Mode)
+## 6. 調試合測試模式 (Debug & Test Mode)
 - 當使用者要求「測試」時，必須優先調用 `skill-tester` 技能。
 - 在沙盒模式下，所有檔案操作必須嚴格限制在 `sandbox/` 目錄內，嚴禁污染正式數據。
+
+## 7. Git 變更策略 (Git Strategy)
+- **變更確認**：在執行任何 Git 提交（Commit）前，Agent **必須主動詢問** 使用者：「請問本次變更是要『發送 Pull Request (PR)』還是『直接合併 (Direct Merge)』？」
+- **嚴禁私自提交**：除非使用者已明確指示「直接 Push」，否則不得繞過審核流程直接寫入主分支。
 
 ---
 *專注於 12 週計畫，助力執行力與自律的極致提升。*
