@@ -4,6 +4,23 @@
 
 ---
 
+## [2026-02-26] - Core Skills & Sandbox Testing Fixes
+### 系統穩定性與防呆 (System Resilience)
+- **效能防呆 (Fail-Safe)**：新增指令逾時與重複執行（超過2次）自動中斷機制，防止無限迴圈卡死。
+- **強制存檔驗證 (Persistent Save Check)**：於多輪問答或狀態轉換前，強制驗證實體 Markdown 檔案是否已確實寫入。
+
+### 技能與體驗優化 (Skill & UX Refinement)
+- **語意寬容 (habit-tracker)**：支援「完美達成」快捷標記，直接將剩餘核心習慣標註為完成並跳轉情緒評估。
+- **專注詢問 (weekly-summarizer)**：導入嚴格「一問一答」互動流程，避免一次列出多個提問。
+- **狀態同步 (weekly-summarizer)**：完成週報後，主動將已確認完成之項目更新回當週的 `config/週計畫.md` (僅更新狀態，不複製未完成項目)。
+
+### 視覺化與測試 (Visualizer & Testing)
+- **渲染穩定化 (monthly-visualizer)**：明確指定 React 18 與 Tailwind CSS，並修復 Lucide/Framer Motion 等 UMD 組件的全域變數呼叫方式，解決 CDN 衝突白屏問題。
+- **授權優化 (monthly-visualizer)**：產出 HTML 檔案後，改為必須先徵詢使用者同意方可啟動 Browser 進行渲染驗證截圖。
+- **端到端測試 (skill-tester)**：新增「全工作流測試 (End-to-End Test)」選項，支援連續串接 `habit-tracker` -> `weekly-summarizer` -> `monthly-visualizer` 的全流程演練。
+
+---
+
 ## [2026-02-26] - Navigation & UX Refinement
 ### 交互與導航優化 (Interaction/Nav)
 - 確立「明確指令原則」，移除模糊的自動觸發邏輯，改為引導式建議執行 `/warmup`。

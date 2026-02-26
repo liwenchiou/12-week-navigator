@@ -149,6 +149,10 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 11:30:00 (Core Skills & Testing Fixes)**:
+  - **效能防呆與強制存檔**：升級指令憲法，加入重複指令自動中斷機制與實體存檔強制驗證。
+  - **技能體驗優化**：擴充 `habit-tracker` 快捷回覆；強制 `weekly-summarizer` 採一問一答且支援當週狀態回寫。
+  - **視覺化修復與 E2E 測試**：解決 `monthly-visualizer` CDN 白屏衝突，並於 `skill-tester` 導入全工作流測試 (E2E Test)。
 - **2026-02-26 09:50:00 (Workflow & Privacy Hardening)**:
   - 更新 **`.gitignore`**：排除 `_doc/` 資料夾，保護開發決策與優化建議報告。
   - 強化 **`/warmup` 工作流**：新增 `config/` 檔案完整性檢查。當設定檔缺失時，系統將自動建立具備「範例說明區塊」的標準模板。
