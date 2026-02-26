@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Week Navigator | 手速提升您的 12 週計畫執行力</title>
+
+    <!-- 核心樣式與字體 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- React 與編譯器 -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --neon-cyan: #00FFFF;
+            --neon-magenta: #FF00FF;
+            --bg-dark: #000000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .neon-border-cyan {
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cyber-grid {
+            background-image: linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 255, 0.02) 50%, transparent 100%);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div id="root">
+        <div class="h-screen w-full flex items-center justify-center bg-black text-white">
+            <div class="flex flex-col items-center gap-4">
+                <div class="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="font-outfit text-sm tracking-widest uppercase opacity-50">Initializing Antigravity...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Navbar = () => (
+            <nav className="fixed top-0 left-0 right-0 z-[1000] p-6 lg:p-8">
+                <div className="max-w-7xl mx-auto glass rounded-2xl px-6 py-4 flex justify-between items-center border-white/5 shadow-2xl">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-fuchsia-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                            <i data-lucide="compass" className="text-white w-6 h-6"></i>
+                        </div>
+                        <span className="font-outfit font-extrabold text-2xl tracking-tighter">12-Week <span className="text-cyan-400">Nav</span></span>
+                    </div>
+                    <div className="hidden lg:flex items-center gap-10 text-[13px] font-bold uppercase tracking-widest text-zinc-400">
+                        <a href="#features" className="hover:text-cyan-400 transition-colors">Features</a>
+                        <a href="#github" className="hover:text-cyan-400 transition-colors">Documentation</a>
+                        <a href="https://github.com/liwenchiou/12-week-navigator" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                            <i data-lucide="github" className="w-4 h-4"></i> GitHub
+                        </a>
+                    </div>
+                    <a href="https://github.com/liwenchiou/12-week-navigator" className="bg-cyan-500 text-black px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/30">
+                        Fork Framework
+                    </a>
+                </div>
+            </nav>
+        );
+
+        const Hero = () => (
+            <section className="relative min-h-screen flex items-center justify-center pt-24 px-6 cyber-grid bg-black">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black"></div>
+                <div className="max-w-7xl mx-auto relative z-10 text-center">
+                    <div className="fade-in-up">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full border-cyan-500/20 mb-10">
+                            <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Open Source AI Framework</span>
+                        </div>
+                        <h1 className="text-6xl lg:text-[10rem] font-black font-outfit leading-[0.85] mb-8 tracking-tighter">
+                            讓 AI 成為您的<br />
+                            <span className="gradient-text neon-glow-cyan">成長指揮塔</span>
+                        </h1>
+                        <p className="max-w-3xl mx-auto text-lg lg:text-2xl text-zinc-500 font-medium leading-relaxed mb-12">
+                            基於 <span className="text-white">12 週計畫</span> 方法論。透過 AI 自動化執行的閉環系統，將目標配置化，讓成長數據具備視覺靈魂。
+                        </p>
+                        <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
+                            <a href="https://github.com/liwenchiou/12-week-navigator" className="w-full lg:w-auto px-12 py-5 bg-white text-black rounded-2xl font-black uppercase tracking-widest hover:bg-cyan-400 transition-all shadow-xl">
+                                開始導航旅程
+                            </a>
+                            <div className="flex items-center gap-4 px-8 py-5 glass rounded-2xl border-white/10 group hover:border-cyan-500/30 transition-colors">
+                                <i data-lucide="terminal" className="w-5 h-5 text-cyan-500"></i>
+                                <span className="font-mono text-sm text-zinc-400 group-hover:text-white">執行 /warmup</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const FeatureItem = ({ icon: Icon, title, desc, delay }) => (
+            <div className={`glass p-10 rounded-[2.5rem] border-white/5 hover:neon-border-cyan transition-all duration-500 group fade-in-up ${delay}`}>
+                <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <Icon className="text-cyan-400 w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-5 font-outfit uppercase tracking-tight">{title}</h3>
+                <p className="text-zinc-500 leading-relaxed text-sm font-medium">{desc}</p>
+            </div>
+        );
+
+        const BentoSection = () => (
+            <section id="features" className="py-32 px-6 bg-black relative">
+                <div className="max-w-7xl mx-auto">
+                    <div className="mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+                        <div className="max-w-2xl">
+                            <h2 className="text-4xl lg:text-6xl font-black font-outfit mb-8 tracking-tighter uppercase">全面掌控您的執行頻率</h2>
+                            <p className="text-zinc-500 text-lg">數據不應只是紀錄，而是具備戰略深度的進化資產。</p>
+                        </div>
+                        <div className="flex gap-4">
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-zinc-600 hover:text-white hover:border-white transition-all cursor-pointer">
+                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
+                            </div>
+                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-zinc-600 hover:text-white hover:border-white transition-all cursor-pointer">
+                                <i data-lucide="arrow-right" className="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <FeatureItem
+                            icon={({ className }) => <i data-lucide="shield-check" className={className}></i>}
+                            title="配置化戰略治理"
+                            desc="將計畫、習慣與目標定義於 Markdown 中。代碼與數據分離，完全掌控您的計畫核心。"
+                            delay="delay-1"
+                        />
+                        <FeatureItem
+                            icon={({ className }) => <i data-lucide="brain" className={className}></i>}
+                            title="失敗學反思引擎"
+                            desc="自動分析未達成項目的阻礙點，區分環境與心理因素，產出具體的「進化對策」。"
+                            delay="delay-2"
+                        />
+                        <FeatureItem
+                            icon={({ className }) => <i data-lucide="layout-panel-left" className={className}></i>}
+                            title="沉浸式視覺報告"
+                            desc="透過 React 渲染具備頂尖設計感的互動報表，包含 12 週總進度條與能量熱點圖。"
+                            delay="delay-3"
+                        />
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Footer = () => (
+            <footer className="py-20 px-6 border-t border-white/5 bg-black">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
+                    <div className="flex flex-col items-center lg:items-start gap-4">
+                        <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 bg-cyan-500 rounded-md flex items-center justify-center">
+                                <i data-lucide="compass" className="text-white w-4 h-4"></i>
+                            </div>
+                            <span className="font-outfit font-bold tracking-tighter">12-Week NAVIGATOR</span>
+                        </div>
+                        <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 font-bold">Strategic Goal Management System</p>
+                    </div>
+                    <div className="flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
+                        <a href="#" className="hover:text-cyan-400 transition-colors">Documentation</a>
+                        <a href="#" className="hover:text-cyan-400 transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-cyan-400 transition-colors">Changelog</a>
+                    </div>
+                    <p className="text-[10px] text-zinc-700 font-medium">© 2026 ANTIGRAVITY EXPERIMENT. MIT LICENSED.</p>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+
+            return (
+                <div className="selection:bg-cyan-500 selection:text-black">
+                    <Navbar />
+                    <Hero />
+                    <BentoSection />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
