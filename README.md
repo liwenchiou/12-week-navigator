@@ -149,6 +149,12 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 15:19:00 (Monthly Report Narrative & Visualization Rules)**:
+  - **月報統整規範**：`monthly-reporter` 新增禁止週次標籤拼接、要求自然段落融合；`monthly-visualizer` 明訂 HTML 版深度回顧每分類僅條列 3~5 重點。
+
+- **2026-02-26 14:52:00 (Weekly Summarizer Faithful Text Fix)**:
+  - **忠實原文規範強化**：`weekly-summarizer` 明確禁止 AI 自行添加評語，要求嚴格引用日誌原文並標注日期，列出具體禁止語句範例。
+
 - **2026-02-26 14:32:00 (Known Issues Log)**:
   - **已知問題日誌機制**：建立 `_doc/執行發現問題.md` 結構化格式（日期區塊 + 表格），並在 `instructions.md` 中新增全局規則，讓 Agent 在診斷問題時能主動參閱，以及在使用者要求時直接追加填寫。
 
