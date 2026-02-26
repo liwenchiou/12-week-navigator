@@ -11,6 +11,9 @@
 - **默認授權**：使用者已明確授權 Agent 在執行 Skill 流程（如每日紀錄、週月報生成、視覺化驗證）時，**無需重複詢問許可**。
 - **自動化指令**：針對 Skill 中定義的指令（如：調用 UI/UX 搜索、瀏覽器渲染驗證、讀取檔案），應直接執行並將 `SafeToAutoRun`設為 `true`。
 
+### 2.1 自然語言指令映射 (Command Mapping)
+- **引導導航**：當使用者輸入「開始」、「如何開始」或類似意圖時，Agent 應優先引導使用者執行 `/warmup` 指令，而非自動執行。這有助於維持執行意圖的明確性。
+
 ## 3. 自動化管理技能 (Plan-System Context)
 請主動調用 `.agent/skills/plan-system/` 下的技能，嚴格遵循以下互動流程：
 
@@ -44,7 +47,13 @@
 - 當使用者要求「測試」時，必須優先調用 `skill-tester` 技能。
 - 在沙盒模式下，所有檔案操作必須嚴格限制在 `sandbox/` 目錄內，嚴禁污染正式數據。
 
-## 7. Git 變更策略 (Git Strategy)
+## 7. 文件同步協定 (Documentation Sync Protocol)
+- **自動同步義務**：任何涉及 `.agent/` 目錄內檔案的修改，**必須主動且同步更新**：
+  1. `CHANGELOG.md`：記錄詳細的變更內容（降序排列）。
+  2. `README.md`：更新「最新動態 (Latest Update)」區塊。
+- **原則**：確保 README 保持精簡美觀，而 CHANGELOG 保留完整技術細節。
+
+## 8. Git 變更策略 (Git Strategy)
 - **變更確認**：在執行任何 Git 提交（Commit）前，Agent **必須主動詢問** 使用者：「請問本次變更是要『發送 Pull Request (PR)』還是『直接合併 (Direct Merge)』？」
 - **嚴禁私自提交**：除非使用者已明確指示「直接 Push」，否則不得繞過審核流程直接寫入主分支。
 
