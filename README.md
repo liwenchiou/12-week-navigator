@@ -149,6 +149,9 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 13:40:00 (Zero-Generation Token Optimize)**:
+  - **預載範本取代動態生成**：全面建立各目錄 (`config/`, `data/`, `reports/`, `sandbox/`) 之 `_sample` 檔案機制，並優化 `.gitignore`。此舉取代了 `/warmup` 開機時動態化生成 `.gitkeep` 或配置檔的浪費步驟。
+
 - **2026-02-26 13:30:00 (Git Manager Upgrade)**:
   - **遠端分發 (Cross-Repo Sync)**：修訂 `git-manager` 流程，於 PR 結案後自動查核並推送至 `framework` 節點，維持私有資料庫與開源框架雙軌同步。
 

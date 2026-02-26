@@ -1,9 +1,25 @@
 # 12-Week Plan Data & Sandbox
-sandbox/
-data/
-reports/
+sandbox/*
+!sandbox/_sample.md
+
+data/*
+!data/daily/
+data/daily/*
+!data/daily/data_sample.md
+!data/weekly/
+data/weekly/*
+!data/weekly/data_sample.md
+!data/monthly/
+data/monthly/*
+!data/monthly/data_sample.md
+
+reports/*
+!reports/_sample.html
+
 _doc/
+
 config/*.md
+!config/*_sample.md
 
 # IDE & System
 .DS_Store
