@@ -6,12 +6,14 @@
 
 ## [2026-02-26] - Core Skills & Sandbox Testing Fixes
 ### 系統穩定性與防呆 (System Resilience)
+- **預載範本優化 (Zero-Generation Warmup)**：重構 `/warmup` 腳本，改由內建 `_sample` 檔案群自動維持 Git 目錄結構並提供標準化配置範本。廢除開機時的動態生成與 `.gitkeep` 操作，進一步省下高昂的 Token 盲目消耗。
 - **環境補強與防呆 (Env Hardening)**：升級 `/warmup` 腳本，增強對缺失目錄的 `.gitkeep` 自動保護。修補配置檔 (週/月計畫) 生成邏輯，強制規範日期格式與 `- [ ]` Checkbox 生成。
 - **Token 消耗最佳化 (Lazy Loading)**：優化 `/warmup` 啟動工作流，導入 `skills-index.md` 延遲加載機制，系統只在需要時讀取對應技能檔案，減少逾 80% 的初始 Token 消耗。
 - **效能防呆 (Fail-Safe)**：新增指令逾時與重複執行（超過2次）自動中斷機制，防止無限迴圈卡死。
 - **強制存檔驗證 (Persistent Save Check)**：於多輪問答或狀態轉換前，強制驗證實體 Markdown 檔案是否已確實寫入。
 
 ### 技能與體驗優化 (Skill & UX Refinement)
+- **範本隔離防護 (Template Exclusion)**：修改 `weekly-summarizer` 與 `monthly-reporter` 的掃描邏輯，強制要求在讀取 `data/` 歷史日誌時，必須略過所有 `data_sample.md` 或 `_sample` 結尾的檔案，避免範本內容污染報表與熱點圖。
 - **多遠端庫跨域同步 (Cross-Repo Sync)**：擴充 `git-manager` 收尾邏輯，當判定存在名為 `framework` 的遠端庫（專供 `12-week-navigator` 開源框架）時，自動呼叫推送指令確保本地、私人與開源庫三方合一。
 - **月報完整性防護 (No Omission Policy)**：強制 `monthly-reporter` 與 `monthly-visualizer` 在測試數據稀少時不得私自閹割報表區塊，確保「12週進度條、習慣矩陣、阻礙偏差、三大獲益」全數強制輸出。
 - **強制腳本呼叫 (Script Binding)**：強化 `monthly-visualizer` 規定，嚴格要求在撰寫 HTML 前必須呼叫 UI/UX python 腳本。
