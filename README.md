@@ -23,15 +23,15 @@
 
 ```bash
 .
-├── config/             # ⚙️ 配置層：定義戰略指標 (核心習慣、週/月計畫)
-├── data/               # 📝 數據層：存放執行資產 (含日、週、月度日誌)
+├── config/             # ⚙️ 配置層：定義戰略指標 (含 *_sample.md 範本)
+├── data/               # 📝 數據層：存放執行資產 (個人資料，已由 .gitignore 忽略)
 │   ├── daily/          # 基礎數據點與能量指標
 │   ├── weekly/         # 週度評分、失敗分析與資源匯整
 │   └── monthly/        # 月度戰略對比與成長紀實
-├── reports/            # 📊 呈現層：自動生成的互動式 HTML 月報 (React/CDN)
+├── reports/            # 📊 呈現層：自動生成的互動式 HTML 報表
 ├── sandbox/            # 🧪 隔離層：Skill 流程演練與全系統測試沙盒
-├── _doc/               # 📂 文件層：系統流程紀錄與優化建議報告
-├── .agent/             # 🤖 邏輯層：Antigravity Agent 核心技能 (Skills) 與指令
+├── .agent/             # 🤖 邏輯層：Antigravity Agent 核心技能 (Skills) 與工作流
+├── CHANGELOG.md        # 📜 技術變更紀錄
 └── README.md
 ```
 
