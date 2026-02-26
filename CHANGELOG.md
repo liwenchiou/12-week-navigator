@@ -12,6 +12,7 @@
 - **強制存檔驗證 (Persistent Save Check)**：於多輪問答或狀態轉換前，強制驗證實體 Markdown 檔案是否已確實寫入。
 
 ### 技能與體驗優化 (Skill & UX Refinement)
+- **多遠端庫跨域同步 (Cross-Repo Sync)**：擴充 `git-manager` 收尾邏輯，當判定存在名為 `framework` 的遠端庫（專供 `12-week-navigator` 開源框架）時，自動呼叫推送指令確保本地、私人與開源庫三方合一。
 - **月報完整性防護 (No Omission Policy)**：強制 `monthly-reporter` 與 `monthly-visualizer` 在測試數據稀少時不得私自閹割報表區塊，確保「12週進度條、習慣矩陣、阻礙偏差、三大獲益」全數強制輸出。
 - **強制腳本呼叫 (Script Binding)**：強化 `monthly-visualizer` 規定，嚴格要求在撰寫 HTML 前必須呼叫 UI/UX python 腳本。
 - **嚴格專注詢問 (weekly-summarizer)**：強制掃描 `- [ ]` 項目並要求 Agent 放棄批量提問，徹底落實一次一問一答的互動體驗。
