@@ -149,6 +149,14 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 13:25:00 (E2E Test Bug Fixes)**:
+  - **環境補強與防呆**：升級 `/warmup`，強制建立空目錄時配置 `.gitkeep`，並修補 config 範本自動生成的 Checkbox 結構與日期格式。
+  - **月報/網頁防閹割**：導入 No Omission Policy，禁止 Agent 於少樣本測試時私自裁減包含「三大獲益」、「阻礙分析」等核心版塊。
+  - **強制問答與腳本**：嚴格化 `weekly-summarizer` 的問卷機制（一問一答），並強制 UI/UX 搜索腳本在生成月報網頁前被呼叫。
+
+- **2026-02-26 13:20:00 (Token Optimization)**:
+  - **導入 Lazy Loading 與 Index 機制**：重構 `/warmup` 啟動工作流，透過讀取輕量級的 `skills-index.md` 代替一次性載入所有技能檔案，大幅節省 80% 以上 Token 消耗。
+
 - **2026-02-26 11:30:00 (Core Skills & Testing Fixes)**:
   - **效能防呆與強制存檔**：升級指令憲法，加入重複指令自動中斷機制與實體存檔強制驗證。
   - **技能體驗優化**：擴充 `habit-tracker` 快捷回覆；強制 `weekly-summarizer` 採一問一答且支援當週狀態回寫。
