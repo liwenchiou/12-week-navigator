@@ -58,9 +58,9 @@ git checkout liwen -- README.md
 git add .agent/ CHANGELOG.md README.md
 git commit -m "[feat|fix]: 同步 Skill 修改（liwen → main）"
 
-# 推送公開框架
+# 僅推送私人 repo（my-12-week-goal）
 git push origin main
-git push framework main
+# ⛔ 不自動推 framework，需等使用者說「發行」才執行
 ```
 
 #### Step 3：回 `liwen`，合併 main 的更新
@@ -69,6 +69,17 @@ git checkout liwen
 git merge main
 git push origin liwen
 ```
+
+#### ✅ 完成後 — 必問發行確認
+
+**每次完成上述 Git 流程後，Agent 必須詢問：**
+
+> 「Git 已完成 ✅
+> 是否要將此版本發行到 `12-week-navigator`（公開框架）？
+> **A. 發行**（執行 `git push framework main`）
+> **B. 不發行**（保留在私人 repo 即可）」
+
+收到回覆後再執行對應動作。若使用者選 A，執行發行 SOP；若選 B，直接結束。
 
 ---
 
@@ -122,6 +133,24 @@ git push origin liwen
 2. **切換回主分支**：`git checkout main`。
 3. **拉取與修剪**：執行 `git pull origin main` 並配合 `git fetch --prune` 確保本地的遠端引用完全同步。
 4. **刪除本地分支**：若分支仍存在，執行 `git branch -d <branch-name>`。
-5. **開源節點同步 (Framework Sync)**：檢查否有設定名為 `framework` 的遠端庫（專供開源，如 12-week-navigator）。若存在，主動執行 `git push framework main` 保持兩端架構同步。
+5. **開源節點同步 (Framework Sync)**：**不自動執行**。僅在使用者明確說「發行」或「推 framework」時才執行（見下方發行 SOP）。
+
+---
+
+## 🚀 發行 SOP（使用者說「發行」時才執行）
+
+> **觸發條件**：使用者明確說「發行」、「推 framework」、「更新開源版本」。
+> **目的**：將目前 `my-12-week-goal/main` 的穩定版本同步到 `12-week-navigator`（公開框架）。
+
+```bash
+# 確認目前在 main 且是最新狀態
+git checkout main
+git pull origin main
+
+# 推送到公開框架 repo
+git push framework main
+```
+
+> 發行後，`12-week-navigator` 即為最新穩定版，社群可以 fork/clone 使用。
 
 ---
