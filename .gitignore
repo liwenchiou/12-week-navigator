@@ -1,7 +1,20 @@
-# 12-Week Plan Sandbox
+# 12-Week Plan Data & Sandbox
 sandbox/
+data/
+reports/
+_doc/
+config/*.md
 
-# System
+# IDE & System
 .DS_Store
+.vscode/
+.idea/
 node_modules/
 .npm/
+*.tmp
+*.log
+
+# Design System Build (if any)
+dist/
+build/
+design-system/

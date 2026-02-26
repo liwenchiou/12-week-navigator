@@ -149,8 +149,16 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
-- **2026-02-26 08:53:40 (Navigation & UX Refinement)**:
-  - 確立「明確指令原則」，實作文件權責分離與自動同步機制。
-  - 優化 `/warmup` 引導流，確保系統初始化意圖明確。
+- **2026-02-26 09:50:00 (Workflow & Privacy Hardening)**:
+  - 更新 **`.gitignore`**：排除 `_doc/` 資料夾，保護開發決策與優化建議報告。
+  - 強化 **`/warmup` 工作流**：新增 `config/` 檔案完整性檢查。當設定檔缺失時，系統將自動建立具備「範例說明區塊」的標準模板。
+- **2026-02-26 09:32:00 (Env Security)**:
+  - 更新 **`.gitignore`**：將 `data/` (個人紀錄)、`reports/` (生成網頁) 與 `design-system/` 等非必要上傳之資產加入忽略清單，強化資料隱私。
+- **2026-02-26 09:30:00 (Policy & Core Logic)**:
+  - 確立 **「越權行為防範規範 (Action Boundary)」**：明確禁止 Agent 執行任何不在 Skill 定義內的自動化行為。
+  - **核心邏輯變更政策**：確立涉及 `.agent/` 目錄的修改必須同步記錄於 `README.md` 與 `CHANGELOG.md` 以確保變更透明。
+  - 清理 `template/` 殘餘，回歸純粹的專案結構。
+- **2026-02-26 09:25:00 (Policy Hardening)**:
+- **2026-02-26 09:12:45 (Portability & Env Hardening)**:
 
 👉 [查看完整更新歷史與詳細日誌 (Full Changelog)](./CHANGELOG.md)
