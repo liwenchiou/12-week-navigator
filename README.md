@@ -149,6 +149,9 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 13:30:00 (Git Manager Upgrade)**:
+  - **遠端分發 (Cross-Repo Sync)**：修訂 `git-manager` 流程，於 PR 結案後自動查核並推送至 `framework` 節點，維持私有資料庫與開源框架雙軌同步。
+
 - **2026-02-26 13:25:00 (E2E Test Bug Fixes)**:
   - **環境補強與防呆**：升級 `/warmup`，強制建立空目錄時配置 `.gitkeep`，並修補 config 範本自動生成的 Checkbox 結構與日期格式。
   - **月報/網頁防閹割**：導入 No Omission Policy，禁止 Agent 於少樣本測試時私自裁減包含「三大獲益」、「阻礙分析」等核心版塊。
