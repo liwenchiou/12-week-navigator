@@ -1,5 +1,7 @@
 # 🎯 12-Week Goal Management System
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 > **A self-hosted, AI-collaborative framework for high-output lifecycle management.**
 
 本專案是一套基於 **12 週計畫 (The 12 Week Year)** 方法論建構的個人管理系統。透過 AI 助理 **Antigravity** 的自動化處理，將繁瑣的紀錄流程轉化為結構化的數據、失敗學分析與沉浸式視覺回顧。旨在為追求卓越的開發者提供一套穩定、具戰略深度且視覺精美的成長指揮塔。
