@@ -149,6 +149,12 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 15:34:00 (Token Optimization - 4 Improvements)**:
+  - **HTML 格式確認**：`monthly-visualizer` 新增第零階段問答，避免格式不明造成多次重寫（最高節省 ~7,000 tokens/對話）。
+  - **文件批次更新**：`instructions` 文件同步改為 Git 前一次性統整，減少高頻讀寫（最高節省 ~13,000 tokens/對話）。
+  - **週報關鍵區塊讀取**：`monthly-reporter` 指定讀取優先區塊，跳過習慣熱點圖明細。
+  - **Skill 速查摘要**：`skills-index` 加入 📌 速查行，輕量情境可跳過完整 Skill 讀取。
+
 - **2026-02-26 15:19:00 (Monthly Report Narrative & Visualization Rules)**:
   - **月報統整規範**：`monthly-reporter` 新增禁止週次標籤拼接、要求自然段落融合；`monthly-visualizer` 明訂 HTML 版深度回顧每分類僅條列 3~5 重點。
 
