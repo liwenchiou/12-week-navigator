@@ -70,8 +70,8 @@
 ### 2. 複製專案與初始化
 ```bash
 # 複製專案
-git clone https://github.com/liwenchiou/my-12-week-goal.git
-cd my-12-week-goal
+git clone https://github.com/<YOUR_USERNAME>/12-week-navigator.git
+cd 12-week-navigator
 
 # 登入 GitHub CLI (以啟用自動 PR 功能)
 # 若尚未安裝，請執行：brew install gh (Mac) 或參閱官方文件
@@ -138,64 +138,18 @@ gh auth login
 
 ---
 
-## 📈 實戰成果範例 (2026-02: 守護者進化)
+## 📈 實戰成果範例 (範例月份：[核心標語])
 
-- **月平均執行分**: 82.7% (Efficiency Rating)
-- **核心標語**: 守護者進化：從硬體升級到心境蛻變 (HARDWARE EVO)
-- **關鍵核心獲益**: 家庭穩定 (System Integrity)、技術質變 (Architecture Update)、自律體力 (Operation Success)
-- **視覺呈現**: [查看二月月報演示影片/截圖](./_doc/20260225_月報驗證報告.md)
+- **月平均執行分**: XX.X% (Efficiency Rating)
+- **核心標語**: [當月總結標語]
+- **關鍵核心獲益**: [獲益項目 A]、[獲益項目 B]、[獲益項目 C]
+- **視覺呈現**: [查看演示報告範本](./data/monthly/data_sample.md)
 
 ---
 
-## 📜 最新動態 (Latest Update)
+## � 版本說明 (Release Notes)
 
-- **2026-02-26 15:34:00 (Token Optimization - 4 Improvements)**:
-  - **HTML 格式確認**：`monthly-visualizer` 新增第零階段問答，避免格式不明造成多次重寫（最高節省 ~7,000 tokens/對話）。
-  - **文件批次更新**：`instructions` 文件同步改為 Git 前一次性統整，減少高頻讀寫（最高節省 ~13,000 tokens/對話）。
-  - **週報關鍵區塊讀取**：`monthly-reporter` 指定讀取優先區塊，跳過習慣熱點圖明細。
-  - **Skill 速查摘要**：`skills-index` 加入 📌 速查行，輕量情境可跳過完整 Skill 讀取。
+目前版本：**v2.0-framework** 
+本專案已實現「數據與框架分離」，您可以放心 Fork 使用。最新的系統優化（包含指令防呆、Token 節省技術、多維度月報引擎等）已全面裝載。
 
-- **2026-02-26 15:19:00 (Monthly Report Narrative & Visualization Rules)**:
-  - **月報統整規範**：`monthly-reporter` 新增禁止週次標籤拼接、要求自然段落融合；`monthly-visualizer` 明訂 HTML 版深度回顧每分類僅條列 3~5 重點。
-
-- **2026-02-26 14:52:00 (Weekly Summarizer Faithful Text Fix)**:
-  - **忠實原文規範強化**：`weekly-summarizer` 明確禁止 AI 自行添加評語，要求嚴格引用日誌原文並標注日期，列出具體禁止語句範例。
-
-- **2026-02-26 14:32:00 (Known Issues Log)**:
-  - **已知問題日誌機制**：建立 `_doc/執行發現問題.md` 結構化格式（日期區塊 + 表格），並在 `instructions.md` 中新增全局規則，讓 Agent 在診斷問題時能主動參閱，以及在使用者要求時直接追加填寫。
-
-- **2026-02-26 14:27:00 (Monthly Reporter & Visualizer Fixes)**:
-  - **月報互動確認補強**：重構 `monthly-reporter` 第一階段，強制先掃描週報、再逐條一問一答確認月計畫未完成目標。
-  - **網頁區塊繁體中文化**：`monthly-visualizer` 新增強制規範，所有 HTML 區塊標題一律使用繁體中文，並提供明確的對應清單。
-
-- **2026-02-26 13:40:00 (Zero-Generation Token Optimize)**:
-  - **預載範本取代動態生成**：全面建立各目錄 (`config/`, `data/`, `reports/`, `sandbox/`) 之 `_sample` 檔案機制，並優化 `.gitignore`。此舉取代了 `/warmup` 開機時動態化生成 `.gitkeep` 或配置檔的浪費步驟。
-
-- **2026-02-26 13:30:00 (Git Manager Upgrade)**:
-  - **遠端分發 (Cross-Repo Sync)**：修訂 `git-manager` 流程，於 PR 結案後自動查核並推送至 `framework` 節點，維持私有資料庫與開源框架雙軌同步。
-
-- **2026-02-26 13:25:00 (E2E Test Bug Fixes)**:
-  - **環境補強與防呆**：升級 `/warmup`，強制建立空目錄時配置 `.gitkeep`，並修補 config 範本自動生成的 Checkbox 結構與日期格式。
-  - **月報/網頁防閹割**：導入 No Omission Policy，禁止 Agent 於少樣本測試時私自裁減包含「三大獲益」、「阻礙分析」等核心版塊。
-  - **強制問答與腳本**：嚴格化 `weekly-summarizer` 的問卷機制（一問一答），並強制 UI/UX 搜索腳本在生成月報網頁前被呼叫。
-
-- **2026-02-26 13:20:00 (Token Optimization)**:
-  - **導入 Lazy Loading 與 Index 機制**：重構 `/warmup` 啟動工作流，透過讀取輕量級的 `skills-index.md` 代替一次性載入所有技能檔案，大幅節省 80% 以上 Token 消耗。
-
-- **2026-02-26 11:30:00 (Core Skills & Testing Fixes)**:
-  - **效能防呆與強制存檔**：升級指令憲法，加入重複指令自動中斷機制與實體存檔強制驗證。
-  - **技能體驗優化**：擴充 `habit-tracker` 快捷回覆；強制 `weekly-summarizer` 採一問一答且支援當週狀態回寫。
-  - **視覺化修復與 E2E 測試**：解決 `monthly-visualizer` CDN 白屏衝突，並於 `skill-tester` 導入全工作流測試 (E2E Test)。
-- **2026-02-26 09:50:00 (Workflow & Privacy Hardening)**:
-  - 更新 **`.gitignore`**：排除 `_doc/` 資料夾，保護開發決策與優化建議報告。
-  - 強化 **`/warmup` 工作流**：新增 `config/` 檔案完整性檢查。當設定檔缺失時，系統將自動建立具備「範例說明區塊」的標準模板。
-- **2026-02-26 09:32:00 (Env Security)**:
-  - 更新 **`.gitignore`**：將 `data/` (個人紀錄)、`reports/` (生成網頁) 與 `design-system/` 等非必要上傳之資產加入忽略清單，強化資料隱私。
-- **2026-02-26 09:30:00 (Policy & Core Logic)**:
-  - 確立 **「越權行為防範規範 (Action Boundary)」**：明確禁止 Agent 執行任何不在 Skill 定義內的自動化行為。
-  - **核心邏輯變更政策**：確立涉及 `.agent/` 目錄的修改必須同步記錄於 `README.md` 與 `CHANGELOG.md` 以確保變更透明。
-  - 清理 `template/` 殘餘，回歸純粹的專案結構。
-- **2026-02-26 09:25:00 (Policy Hardening)**:
-- **2026-02-26 09:12:45 (Portability & Env Hardening)**:
-
-👉 [查看完整更新歷史與詳細日誌 (Full Changelog)](./CHANGELOG.md)
+👉 [查看完整技術變更細節 (Full Changelog)](./CHANGELOG.md)
