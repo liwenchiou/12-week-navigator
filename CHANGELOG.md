@@ -13,6 +13,10 @@
 - **強制存檔驗證 (Persistent Save Check)**：於多輪問答或狀態轉換前，強制驗證實體 Markdown 檔案是否已確實寫入。
 
 ### 技能與體驗優化 (Skill & UX Refinement)
+- **已知問題日誌規範 (Known Issues Log)**：在 `instructions.md` 第 7.1 節新增全局規則，定義 `_doc/執行發現問題.md` 的兩種觸發時機：診斷問題時主動參閱、使用者要求紀錄時直接以表格格式追加，無需詢問。
+- **月報互動確認補強 (monthly-reporter)**：重構第一階段執行順序，改為先掃描週報彙整數據，再讀取月計畫，並針對每條 `- [ ]` 未完成目標以「一問一答」方式逐條向使用者確認，禁止一次性精簡帶過。
+- **網頁區塊繁體中文化 (monthly-visualizer)**：新增「🚨 繁體中文強制要求」規範，要求所有區塊標題（Dashboard → 執行數據總覽、Habits → 習慣達成分析等）一律使用繁體中文，嚴禁英文標題出現在 HTML 輸出中。
+- **抗拒越權條款 (Conflict Override Protocol)**：在 `instructions.md` 中新增全局最高準則，當使用者語氣急迫（如「立刻執行」）與 Skill 強制詢問流程牴觸時，必須無視急迫語氣，優先遵守 Skill 規範並暫停確認。
 - **範本隔離防護 (Template Exclusion)**：修改 `weekly-summarizer` 與 `monthly-reporter` 的掃描邏輯，強制要求在讀取 `data/` 歷史日誌時，必須略過所有 `data_sample.md` 或 `_sample` 結尾的檔案，避免範本內容污染報表與熱點圖。
 - **多遠端庫跨域同步 (Cross-Repo Sync)**：擴充 `git-manager` 收尾邏輯，當判定存在名為 `framework` 的遠端庫（專供 `12-week-navigator` 開源框架）時，自動呼叫推送指令確保本地、私人與開源庫三方合一。
 - **月報完整性防護 (No Omission Policy)**：強制 `monthly-reporter` 與 `monthly-visualizer` 在測試數據稀少時不得私自閹割報表區塊，確保「12週進度條、習慣矩陣、阻礙偏差、三大獲益」全數強制輸出。

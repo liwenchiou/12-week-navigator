@@ -149,6 +149,13 @@ gh auth login
 
 ## 📜 最新動態 (Latest Update)
 
+- **2026-02-26 14:32:00 (Known Issues Log)**:
+  - **已知問題日誌機制**：建立 `_doc/執行發現問題.md` 結構化格式（日期區塊 + 表格），並在 `instructions.md` 中新增全局規則，讓 Agent 在診斷問題時能主動參閱，以及在使用者要求時直接追加填寫。
+
+- **2026-02-26 14:27:00 (Monthly Reporter & Visualizer Fixes)**:
+  - **月報互動確認補強**：重構 `monthly-reporter` 第一階段，強制先掃描週報、再逐條一問一答確認月計畫未完成目標。
+  - **網頁區塊繁體中文化**：`monthly-visualizer` 新增強制規範，所有 HTML 區塊標題一律使用繁體中文，並提供明確的對應清單。
+
 - **2026-02-26 13:40:00 (Zero-Generation Token Optimize)**:
   - **預載範本取代動態生成**：全面建立各目錄 (`config/`, `data/`, `reports/`, `sandbox/`) 之 `_sample` 檔案機制，並優化 `.gitignore`。此舉取代了 `/warmup` 開機時動態化生成 `.gitkeep` 或配置檔的浪費步驟。
 
