@@ -4,97 +4,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12-Week Navigator | 手速提升您的 12 週計畫執行力</title>
+    <title>12-Week Navigator | 高效且優雅的成長導航員</title>
 
-    <!-- 核心樣式與字體 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Noto+Sans+TC:wght@500;700;900&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
         rel="stylesheet">
 
-    <!-- React 與編譯器 -->
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
         :root {
-            --neon-cyan: #00FFFF;
-            --neon-magenta: #FF00FF;
-            --bg-dark: #000000;
+            --m-blue: #4A697B;
+            --m-sage: #6B705C;
+            --m-rose: #A57C77;
+            --m-charcoal: #2D3436;
+            --m-text: #454D4F;
+            --m-bg: #FDFCF8;
+            --m-card: #FFFFFF;
+            --m-shadow: rgba(45, 52, 54, 0.08);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: white;
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif;
+            background-color: var(--m-bg);
+            color: var(--m-text);
             margin: 0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .font-outfit {
-            font-family: 'Outfit', sans-serif;
+        .font-round {
+            font-family: 'Varela Round', sans-serif;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .neon-glow-cyan {
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        .bento-card {
+            border-radius: 3rem;
+            background-color: var(--m-card);
+            padding: 3rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(45, 52, 54, 0.08);
+            box-shadow: 0 4px 6px -1px var(--m-shadow);
         }
 
-        .neon-border-cyan {
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        .cta-pill {
+            background-color: var(--m-charcoal);
+            color: #FFFFFF;
+            padding: 1.15rem 3rem;
+            border-radius: 9999px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px -5px rgba(45, 52, 54, 0.2);
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-magenta) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .cta-pill:hover {
+            background-color: var(--m-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(74, 105, 123, 0.3);
         }
 
-        .cyber-grid {
-            background-image: linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+        .blob {
+            position: absolute;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.5;
+            border-radius: 50%;
+            animation: move 25s infinite alternate ease-in-out;
         }
 
-        @keyframes scanline {
+        @keyframes move {
             0% {
-                transform: translateY(-100%);
+                transform: scale(1) translate(0, 0);
             }
 
             100% {
-                transform: translateY(100%);
+                transform: scale(1.1) translate(100px, 50px);
             }
         }
 
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .step-num {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: white;
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.25em;
+            background-color: var(--m-blue);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .tag {
+            background-color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: var(--m-blue);
+            border: 1px solid rgba(74, 105, 123, 0.15);
+        }
+
+        /* Swiper Custom */
+        .swiper {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 255, 0.02) 50%, transparent 100%);
-            animation: scanline 8s linear infinite;
-            pointer-events: none;
-            z-index: 100;
+            padding: 2rem 0 4rem 0 !important;
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
+        .swiper-slide {
+            height: auto !important;
+            display: flex !important;
+            justify-content: center;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
         }
 
-        @keyframes fadeInUp {
+        .swiper-slide-active {
+            opacity: 1;
+        }
+
+        .copy-feedback {
+            animation: fadeUp 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(10px);
             }
 
             to {
@@ -102,159 +176,117 @@
                 transform: translateY(0);
             }
         }
-
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
     </style>
 </head>
 
 <body>
-    <div class="scanline"></div>
-    <div id="root">
-        <div class="h-screen w-full flex items-center justify-center bg-black text-white">
-            <div class="flex flex-col items-center gap-4">
-                <div class="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                <p class="font-outfit text-sm tracking-widest uppercase opacity-50">Initializing Antigravity...</p>
-            </div>
-        </div>
+    <div class="blob w-[800px] h-[800px] bg-[#A57C77]/20 top-[-300px] left-[-200px]"></div>
+    <div class="blob w-[700px] h-[700px] bg-[#6B705C]/15 bottom-[-200px] right-[-100px]" style="animation-delay: 2s;">
     </div>
 
+    <div id="root"></div>
+
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
-        const Navbar = () => (
-            <nav className="fixed top-0 left-0 right-0 z-[1000] p-6 lg:p-8">
-                <div className="max-w-7xl mx-auto glass rounded-2xl px-6 py-4 flex justify-between items-center border-white/5 shadow-2xl">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-fuchsia-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                            <i data-lucide="compass" className="text-white w-6 h-6"></i>
-                        </div>
-                        <span className="font-outfit font-extrabold text-2xl tracking-tighter">12-Week <span className="text-cyan-400">Nav</span></span>
-                    </div>
-                    <div className="hidden lg:flex items-center gap-10 text-[13px] font-bold uppercase tracking-widest text-zinc-400">
-                        <a href="#features" className="hover:text-cyan-400 transition-colors">Features</a>
-                        <a href="#github" className="hover:text-cyan-400 transition-colors">Documentation</a>
-                        <a href="https://github.com/liwenchiou/12-week-navigator" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
-                            <i data-lucide="github" className="w-4 h-4"></i> GitHub
-                        </a>
-                    </div>
-                    <a href="https://github.com/liwenchiou/12-week-navigator" className="bg-cyan-500 text-black px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/30">
-                        Fork Framework
-                    </a>
-                </div>
-            </nav>
-        );
+        const Typewriter = () => {
+            const command = 'git clone https://github.com/liwenchiou/12-week-navigator.git';
+            const [text, setText] = useState('');
+            const [isCopied, setIsCopied] = useState(false);
+            const timerRef = useRef(null);
 
-        const Hero = () => (
-            <section className="relative min-h-screen flex items-center justify-center pt-24 px-6 cyber-grid bg-black">
-                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black"></div>
-                <div className="max-w-7xl mx-auto relative z-10 text-center">
-                    <div className="fade-in-up">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full border-cyan-500/20 mb-10">
-                            <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Open Source AI Framework</span>
+            useEffect(() => {
+                // Persistent effect: restart if needed or just run once? 
+                // User said "didn't seem to persist", let's make it run once and stay.
+                if (text.length < command.length) {
+                    timerRef.current = setTimeout(() => {
+                        setText(command.substring(0, text.length + 1));
+                    }, 35);
+                }
+                return () => clearTimeout(timerRef.current);
+            }, [text]);
+
+            const copyCommand = (e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(command);
+                setIsCopied(true);
+                setTimeout(() => setIsCopied(false), 2000);
+            };
+
+            return (
+                <div
+                    onClick={copyCommand}
+                    className="group relative flex items-center justify-between gap-4 px-8 py-5 border-2 bg-white/80 backdrop-blur-sm border-slate-100 rounded-3xl w-full max-w-2xl mx-auto lg:mx-0 shadow-sm cursor-pointer hover:border-[#4A697B] hover:bg-white transition-all"
+                >
+                    <div className="flex items-center gap-4 overflow-hidden">
+                        <i data-lucide="terminal" className="w-5 h-5 text-[#4A697B] flex-shrink-0" />
+                        <div className="font-mono text-[10px] md:text-xs text-[#4A697B] whitespace-nowrap">
+                            {text}
+                            {text.length < command.length && <span className="cursor"></span>}
                         </div>
-                        <h1 className="text-6xl lg:text-[10rem] font-black font-outfit leading-[0.85] mb-8 tracking-tighter">
-                            讓 AI 成為您的<br />
-                            <span className="gradient-text neon-glow-cyan">成長指揮塔</span>
-                        </h1>
-                        <p className="max-w-3xl mx-auto text-lg lg:text-2xl text-zinc-500 font-medium leading-relaxed mb-12">
-                            基於 <span className="text-white">12 週計畫</span> 方法論。透過 AI 自動化執行的閉環系統，將目標配置化，讓成長數據具備視覺靈魂。
-                        </p>
-                        <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
-                            <a href="https://github.com/liwenchiou/12-week-navigator" className="w-full lg:w-auto px-12 py-5 bg-white text-black rounded-2xl font-black uppercase tracking-widest hover:bg-cyan-400 transition-all shadow-xl">
-                                開始導航旅程
-                            </a>
-                            <div className="flex items-center gap-4 px-8 py-5 glass rounded-2xl border-white/10 group hover:border-cyan-500/30 transition-colors">
-                                <i data-lucide="terminal" className="w-5 h-5 text-cyan-500"></i>
-                                <span className="font-mono text-sm text-zinc-400 group-hover:text-white">執行 /warmup</span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                        {isCopied ? (
+                            <div className="flex items-center gap-1.5 text-emerald-600 font-black text-[10px] uppercase tracking-widest copy-feedback">
+                                <i data-lucide="check" className="w-4 h-4" />
+                                <span>Copied</span>
                             </div>
+                        ) : (
+                            <div className="flex items-center gap-1.5 text-slate-300 group-hover:text-[#4A697B] font-black text-[10px] uppercase tracking-widest transition-colors">
+                                <i data-lucide="copy" className="w-4 h-4" />
+                                <span>Copy</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const SystemCard = ({ type, title, content, score, color }) => (
+            <div className="bento-card border-2 border-[#2D3436]/5 max-w-md w-full mx-auto transform transition-all duration-500">
+                <div className="flex justify-between items-center mb-12">
+                    <div className="flex gap-2">
+                        <div className="w-3.5 h-3.5 rounded-full bg-[#A57C77]"></div>
+                        <div className="w-3.5 h-3.5 rounded-full bg-[#6B705C]"></div>
+                        <div className="w-3.5 h-3.5 rounded-full bg-[#4A697B]"></div>
+                    </div>
+                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{type}</span>
+                </div>
+                <div className="space-y-10">
+                    <div className="flex gap-5">
+                        <div className={`w-2 h-16 ${color} rounded-full`}></div>
+                        <div>
+                            <p className={`text-[10px] font-black ${color.replace('bg-', 'text-')} mb-2 uppercase tracking-tighter italic`}>Insights</p>
+                            <p className="text-xl font-black text-[#2D3436] leading-snug">{title}</p>
+                        </div>
+                    </div>
+                    <div className="p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm relative overflow-hidden">
+                        <div className="flex justify-between items-end mb-5">
+                            <span className="text-[11px] font-black text-slate-400 uppercase">{content}</span>
+                            <span className={`text-3xl font-round font-black ${color.replace('bg-', 'text-')}`}>{score}%</span>
+                        </div>
+                        <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div className={`h-full ${color} transition-all duration-1000`} style={{ width: `${score}%` }}></div>
                         </div>
                     </div>
                 </div>
-            </section>
-        );
-
-        const FeatureItem = ({ icon: Icon, title, desc, delay }) => (
-            <div className={`glass p-10 rounded-[2.5rem] border-white/5 hover:neon-border-cyan transition-all duration-500 group fade-in-up ${delay}`}>
-                <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                    <Icon className="text-cyan-400 w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-5 font-outfit uppercase tracking-tight">{title}</h3>
-                <p className="text-zinc-500 leading-relaxed text-sm font-medium">{desc}</p>
             </div>
         );
 
-        const BentoSection = () => (
-            <section id="features" className="py-32 px-6 bg-black relative">
-                <div className="max-w-7xl mx-auto">
-                    <div className="mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-                        <div className="max-w-2xl">
-                            <h2 className="text-4xl lg:text-6xl font-black font-outfit mb-8 tracking-tighter uppercase">全面掌控您的執行頻率</h2>
-                            <p className="text-zinc-500 text-lg">數據不應只是紀錄，而是具備戰略深度的進化資產。</p>
-                        </div>
-                        <div className="flex gap-4">
-                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-zinc-600 hover:text-white hover:border-white transition-all cursor-pointer">
-                                <i data-lucide="arrow-left" className="w-5 h-5"></i>
-                            </div>
-                            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-zinc-600 hover:text-white hover:border-white transition-all cursor-pointer">
-                                <i data-lucide="arrow-right" className="w-5 h-5"></i>
-                            </div>
-                        </div>
+        const Navbar = () => (
+            <nav className="max-w-7xl mx-auto px-10 py-12 flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-[#4A697B] rounded-2xl flex items-center justify-center text-white shadow-lg">
+                        <i data-lucide="compass" size={26} />
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <FeatureItem
-                            icon={({ className }) => <i data-lucide="shield-check" className={className}></i>}
-                            title="配置化戰略治理"
-                            desc="將計畫、習慣與目標定義於 Markdown 中。代碼與數據分離，完全掌控您的計畫核心。"
-                            delay="delay-1"
-                        />
-                        <FeatureItem
-                            icon={({ className }) => <i data-lucide="brain" className={className}></i>}
-                            title="失敗學反思引擎"
-                            desc="自動分析未達成項目的阻礙點，區分環境與心理因素，產出具體的「進化對策」。"
-                            delay="delay-2"
-                        />
-                        <FeatureItem
-                            icon={({ className }) => <i data-lucide="layout-panel-left" className={className}></i>}
-                            title="沉浸式視覺報告"
-                            desc="透過 React 渲染具備頂尖設計感的互動報表，包含 12 週總進度條與能量熱點圖。"
-                            delay="delay-3"
-                        />
-                    </div>
+                    <span className="font-round text-2xl font-bold tracking-tight text-[#2D3436]">12-Week <span className="text-[#4A697B]">Nav</span></span>
                 </div>
-            </section>
-        );
-
-        const Footer = () => (
-            <footer className="py-20 px-6 border-t border-white/5 bg-black">
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
-                    <div className="flex flex-col items-center lg:items-start gap-4">
-                        <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 bg-cyan-500 rounded-md flex items-center justify-center">
-                                <i data-lucide="compass" className="text-white w-4 h-4"></i>
-                            </div>
-                            <span className="font-outfit font-bold tracking-tighter">12-Week NAVIGATOR</span>
-                        </div>
-                        <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 font-bold">Strategic Goal Management System</p>
-                    </div>
-                    <div className="flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
-                        <a href="#" className="hover:text-cyan-400 transition-colors">Documentation</a>
-                        <a href="#" className="hover:text-cyan-400 transition-colors">Privacy</a>
-                        <a href="#" className="hover:text-cyan-400 transition-colors">Changelog</a>
-                    </div>
-                    <p className="text-[10px] text-zinc-700 font-medium">© 2026 ANTIGRAVITY EXPERIMENT. MIT LICENSED.</p>
+                <div className="hidden lg:flex items-center gap-14 text-sm font-black text-[#6B705C]">
+                    <a href="#features" className="hover:text-[#2D3436] transition-colors tracking-widest">核心技能</a>
+                    <a href="#guide" className="hover:text-[#2D3436] transition-colors tracking-widest">使用流程</a>
+                    <a href="https://github.com/liwenchiou/12-week-navigator" className="cta-pill text-xs">FORK SYSTEM</a>
                 </div>
-            </footer>
+            </nav>
         );
 
         const App = () => {
@@ -262,14 +294,140 @@
                 if (window.lucide) {
                     window.lucide.createIcons();
                 }
+
+                // Initialize Swiper
+                new Swiper('.swiper', {
+                    loop: true,
+                    centeredSlides: true,
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
             }, []);
 
+            // Re-run lucide on certain state changes if icons are inside React components
+            // But we'll use a listener or just ensure lucide processes everything.
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            });
+
             return (
-                <div className="selection:bg-cyan-500 selection:text-black">
+                <div className="px-6 md:px-12">
                     <Navbar />
-                    <Hero />
-                    <BentoSection />
-                    <Footer />
+
+                    <header className="max-w-7xl mx-auto py-24 grid lg:grid-cols-2 gap-24 items-center">
+                        <div className="text-center lg:text-left">
+                            <h1 className="text-6xl md:text-[5.5rem] font-black mb-12 leading-[1.05] tracking-tighter text-[#2D3436]">
+                                靜心，<br />最強大的<br /><span className="text-[#4A697B] font-round italic">執行武裝</span>
+                            </h1>
+                            <p className="max-w-xl text-xl text-[#454D4F] font-bold leading-relaxed mb-16">
+                                擺脫眼花繚亂的色調。我們用最沈穩的對比，<br />展示您全方位的進度監測。
+                            </p>
+
+                            <div className="mb-12">
+                                <Typewriter />
+                                <p className="mt-4 text-[10px] font-black text-slate-300 uppercase tracking-widest animate-pulse">
+                                    Click the command bar to copy
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center gap-8 justify-center lg:justify-start">
+                                <a href="https://github.com/liwenchiou/12-week-navigator" className="cta-pill">取得框架原始碼 <i data-lucide="github" size={20} /></a>
+                            </div>
+                        </div>
+
+                        <div className="relative w-full overflow-hidden">
+                            <div className="swiper">
+                                <div className="swiper-wrapper">
+                                    <div className="swiper-slide pt-4 pb-4">
+                                        <SystemCard
+                                            type="Strategic Monitor"
+                                            title="願景落實度高於平均，數據與核心價值已接軌。"
+                                            content="Alignment Score"
+                                            score={92}
+                                            color="bg-[#4A697B]"
+                                        />
+                                    </div>
+                                    <div className="swiper-slide pt-4 pb-4">
+                                        <SystemCard
+                                            type="Habit Pulse"
+                                            title="連續 7 天完成深度工作，專注力進入穩定期。"
+                                            content="Habit Consistency"
+                                            score={88}
+                                            color="bg-[#6B705C]"
+                                        />
+                                    </div>
+                                    <div className="swiper-slide pt-4 pb-4">
+                                        <SystemCard
+                                            type="Growth Retrospective"
+                                            title="成功識別 3 項行為阻礙，進化策略已自動部署。"
+                                            content="Pivot Efficiency"
+                                            score={95}
+                                            color="bg-[#A57C77]"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section id="features" className="max-w-7xl mx-auto py-32">
+                        <div className="text-center mb-28">
+                            <h2 className="text-5xl font-black mb-8 text-[#2D3436] tracking-tighter">實戰派專屬核心技能</h2>
+                            <p className="text-lg text-slate-400 font-bold uppercase tracking-[0.2em]">Self-Hosted Execution Logic</p>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-12">
+                            <div className="bento-box p-12 bg-white rounded-[3rem] border border-slate-100 flex flex-col h-full hover:border-[#4A697B] transition-colors">
+                                <i data-lucide="message-square-text" className="w-12 h-12 mb-8 text-[#4A697B]" />
+                                <h3 className="text-2xl font-black mb-4">對話式習慣採集</h3>
+                                <p className="font-bold text-slate-500">無需開啟繁重軟體。隨手對著助理輸入「今日達成」，後台自動歸檔。</p>
+                            </div>
+                            <div className="bento-box p-12 bg-white rounded-[3rem] border border-slate-100 flex flex-col h-full hover:border-[#6B705C] transition-colors">
+                                <i data-lucide="shield-alert" className="w-12 h-12 mb-8 text-[#6B705C]" />
+                                <h3 className="text-2xl font-black mb-4">失敗阻礙與對策</h3>
+                                <p className="font-bold text-slate-500">不再逃避失敗。自動提煉阻礙因子，並在週報中產出解決方案。</p>
+                            </div>
+                            <div className="bento-box p-12 bg-white rounded-[3rem] border border-slate-100 flex flex-col h-full hover:border-[#A57C77] transition-colors">
+                                <i data-lucide="layout-grid" className="w-12 h-12 mb-8 text-[#A57C77]" />
+                                <h3 className="text-2xl font-black mb-4">動態 UI 報告合成</h3>
+                                <p className="font-bold text-slate-500">自動掃描 Data 層級並合成具備精品感的 Web 報表與能量熱圖。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="guide" className="max-w-7xl mx-auto py-32 bg-white/40 bento-card border-none px-6">
+                        <div className="text-center mb-24">
+                            <h2 className="text-4xl md:text-5xl font-black text-[#2D3436] font-round tracking-tighter">如何開啟您的成長導航？</h2>
+                        </div>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center items-start">
+                            {[
+                                { num: '01', icon: 'copy', title: '克隆架構', desc: 'Fork 倉庫。資料完全保存在本地端環境。', color: 'bg-[#4A697B]' },
+                                { num: '02', icon: 'file-box', title: '戰略配置', desc: '在 /config 修改習慣與願景範本。', color: 'bg-[#6B705C]' },
+                                { num: '03', icon: 'terminal', title: '暖機初始化', desc: '執行 /warmup 指令。載入核心 Skill Set。', color: 'bg-[#A57C77]' },
+                                { num: '04', icon: 'award', title: '數據進化', desc: '享受每日對話，見證 12 週後的脫胎換骨。', color: 'bg-zinc-800' }
+                            ].map((step, idx) => (
+                                <div key={idx} className="flex flex-col items-center">
+                                    <div className={`step-num ${step.color} mb-8`}><i data-lucide={step.icon} size={28} /></div>
+                                    <h4 className="text-xl font-black mb-4">{step.title}</h4>
+                                    <p className="text-sm font-bold text-slate-400 px-4">{step.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <footer className="max-w-7xl mx-auto py-32 text-center border-t border-slate-100 mt-20">
+                        <p className="text-[10px] font-black tracking-[0.4em] text-slate-300 uppercase">
+                            Designed for Developers • Antigravity Ecosystem • MIT 2026
+                        </p>
+                    </footer>
                 </div>
             );
         };
