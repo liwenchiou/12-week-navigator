@@ -18,6 +18,10 @@
 - **忠實原文規範強化 (weekly-summarizer)**：重寫「深度生活回顧」條款，明確禁止 AI 自行添加評語、詮釋或情感渲染，要求嚴格引用日誌原文並標注日期。列出具體禁止語句範例，以防 AI 腦補行為重演。
 - **月報深度回顧統整規範 (monthly-reporter)**：新增「統整原則」條款，明確禁止以「W06...W07...W08」週次標籤流水拼接原文，要求將各週相關內容有機融合為自然段落。
 - **月報視覺化簡報格式 (monthly-visualizer)**：明訂 HTML 網頁之「深度生活回顧」每分類僅條列 3~5 條重點，供發表者現場補充；完整版保留於 Markdown 月報文件。
+- **Token 優化 - HTML 格式確認步驟 (monthly-visualizer)**：新增「第零階段：格式確認」，在產出 HTML 前先詢問使用者偏好（A 條列重點式 / B 段落統整式），預設使用 A，避免因格式不明導致多次全量重寫。
+- **Token 優化 - 週報關鍵區塊讀取策略 (monthly-reporter)**：月報第一階段改為優先讀取 5 個關鍵 Section（執行評分、阻礙、獲益、金句、深度回顧），習慣熱點圖明細僅在需要時才讀取。
+- **Token 優化 - Skill 速查摘要 (skills-index)**：為所有 Skill 加入 📌 速查摘要行，包含核心流程與主要禁止規則，讓 Agent 在輕量情境下可跳過完整 Skill 文件讀取。
+- **Token 優化 - 文件同步批次更新策略 (instructions)**：第 7 節改為「Git 觸發點統整」策略，對話中累積 `.agent/` 變更，於使用者要求 Git 時一次性更新 CHANGELOG 與 README，減少高頻讀寫。
 - **網頁區塊繁體中文化 (monthly-visualizer)**：新增「🚨 繁體中文強制要求」規範，要求所有區塊標題（Dashboard → 執行數據總覽、Habits → 習慣達成分析等）一律使用繁體中文，嚴禁英文標題出現在 HTML 輸出中。
 - **抗拒越權條款 (Conflict Override Protocol)**：在 `instructions.md` 中新增全局最高準則，當使用者語氣急迫（如「立刻執行」）與 Skill 強制詢問流程牴觸時，必須無視急迫語氣，優先遵守 Skill 規範並暫停確認。
 - **範本隔離防護 (Template Exclusion)**：修改 `weekly-summarizer` 與 `monthly-reporter` 的掃描邏輯，強制要求在讀取 `data/` 歷史日誌時，必須略過所有 `data_sample.md` 或 `_sample` 結尾的檔案，避免範本內容污染報表與熱點圖。
