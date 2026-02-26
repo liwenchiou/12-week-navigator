@@ -3,6 +3,83 @@ name: git-manager
 description: 遵循 12 週計畫系統的 Git 分支管理與提交規範 (繁體中文條列式)。
 ---
 
+## 🚨 liwen 個人分支 SOP（強制遵守）
+
+本專案維護**雙分支架構**，使用者 `liwen` 的個人資料（日誌、週報、月報、config、_doc）**僅存在於 `liwen` 分支**，`main` 分支僅為公開框架骨架。Agent **必須嚴格遵守以下規則**。
+
+### 分支職責對照表
+
+| 分支 | 包含內容 | 推送目標 |
+|---|---|---|
+| `main` | `.agent/`、`README.md`、`CHANGELOG.md`、範本檔 | `origin main` + `framework main` |
+| `liwen` | `main` 的全部 + `data/`、`config/`、`reports/`、`_doc/` | `origin liwen` 只 |
+
+> ⚠️ **嚴禁** 將 `liwen` 分支推送到 `framework`。個人資料絕對不能進公開框架。
+
+---
+
+### 🔁 日常使用 SOP（非 Skill 修改）
+
+每次操作前確認分支：
+```bash
+git checkout liwen
+```
+
+改完個人紀錄後推送：
+```bash
+git add .
+git commit -m "[personal]: 說明本次更新內容"
+git push origin liwen
+# ⛔ 不執行 git push framework
+```
+
+---
+
+### 🔧 修改 Skill / .agent/ 時的 SOP（嚴格執行）
+
+当 `.agent/` 內有變更且使用者要求 Git 時，Agent **必須依以下順序執行**：
+
+#### Step 1：在 `liwen` 確認修改內容齊全
+```bash
+git checkout liwen
+git add .agent/ CHANGELOG.md README.md
+git commit -m "[feat|fix]: Skill 修改說明"
+```
+
+#### Step 2：將 Skill 變更同步到 `main`
+```bash
+git checkout main
+
+# 從 liwen 取出 .agent/ 與文件（不含個人資料）
+git checkout liwen -- .agent/
+git checkout liwen -- CHANGELOG.md
+git checkout liwen -- README.md
+
+git add .agent/ CHANGELOG.md README.md
+git commit -m "[feat|fix]: 同步 Skill 修改（liwen → main）"
+
+# 推送公開框架
+git push origin main
+git push framework main
+```
+
+#### Step 3：回 `liwen`，合併 main 的更新
+```bash
+git checkout liwen
+git merge main
+git push origin liwen
+```
+
+---
+
+### ⛔ 嚴禁事項
+
+1. **禁止** 在 `main` 分支直接修改個人資料（data/config/reports）
+2. **禁止** 執行 `git push framework liwen`
+3. **禁止** 在 `liwen` 略過 Step 2，直接只 push liwen 而不同步 main（會造成 Skill 版本落差）
+4. 若使用者只說「push」或「git」，**必須先詢問**：「請問這次是個人紀錄更新，還是有 Skill 修改需要同步到 main？」
+
+---
 # Git 管理執行邏輯
 
 當使用者要求「執行 Git 相關作業」時，Agent 應遵循以下標準化流程：
