@@ -4,11 +4,42 @@
 
 ---
 
+## [2026-03-10] - Workflow Simplification & Command Unification
+### 工作流架構重構 (Workflow Consolidation)
+- **大一統初始化指令 (Unified Init)**：將原有的 `pre-check` (環境診斷) 與 `config-validator` (格式校準) 整合為單一指令 **`@/init`**。此指令現在負責「環境檢測 + 檔案結構補齊 (自動還原範本) + 內容格式驗證」，大幅簡化啟動流程。
+- **直覺啟動導引 (Start Onboarding)**：將 `warmup` 重新更名為 **`@/start`**。這使之更符合使用者啟動系統的直覺意圖，並整合了操作建議選單。
+- **報表導航精靈 (Report Guide)**：新增 **`@/report-guide`** 導引。專門處理「紀錄」之後的「產出」階段，引導使用者完成週報、月報及視覺化網頁的 PDCA 循環。
+- **業務與工具戰略解耦 (Strategic Decoupling)**：將 `git-manager` 從 12 週計畫套件中分離，獨立為 **`.agent/skills/git-manager/`**。此舉確保了「成長系統」的純粹性，並讓 Git 管理工具能作為通用元件在不同開發專案中重複使用。
+- **旗艦入口總控台模式 (Dashboard Pattern Deployment)**：實現極致的指令收束，將原本零散的 `init`, `start`, `report-guide` 等指令收納至單一入口 **`@/12-week-navigator`**。
+- **模組化分發優化 (Two-Step Distribution)**：優化套件結構，現在僅需「複製資料夾」+「放置單一入口檔案」即可在不同專案中完整遷移整套 12 週計畫系統。與細碎的軟連結方案相比，此模式顯著提升了分發體驗。
+- **指令版圖精簡 (Command Logic)**：README 與引導手冊同步更新。現在核心指令精簡為：`init` (整頓環境)、`start` (進入導覽)、`report-guide` (產出報表)、`habit-tracker` (每日紀錄)。
+
+### 執行力紀錄 (Task Execution)
+- 完成 2026-03-10 每日日誌。
+- 提出並實作「先分析再執行」的 AI 回饋準則。
+
+## [2026-03-03] - Architecture Refactoring & Interaction Protocol Enforcement
+### 系統架構與憲法強化 (Architecture & Policy)
+- **行為準則憲法化 (Global Instructions Consolidation)**：重構 `.agent/instructions.md`，將「逐項互動原則」、「忠實紀錄原則」、「局部更新策略」、「沙盒隔離原則」、「Git 雙重確認機制」全數列為全域最高準則。並特別針對 **「雙分支數據隔離」** 進行憲法級硬化，強制執行私有 SOP 同步流程。
+- **技能職責去冗餘 (Skill De-cluttering)**：全面清理 `habit-tracker`, `weekly-summarizer`, `monthly-reporter` 等 Skill 檔案，移除重複規則，改為全域引用，大幅提升維護性。
+
+### 工作流優化 (Workflow Optimization)
+- **預檢工作流獨立化 (Pre-check Decoupling)**：建立單獨的 `.agent/workflows/pre-check.md` 供環境診斷。
+- **配置檔校準器 (Config Validator)**：新增 `.agent/workflows/config-validator.md`，專門檢查計畫檔格式。
+- **補記與修正精靈 (Habit Fixer)**：新增 `.agent/workflows/habit-fixer.md`，支援補記缺失日期或修正已存日誌。
+- **啟動導航精簡化 (Start Refinement)**：精簡 `start.md` 並加入預檢引導。
+
+### 溝通與紀錄體驗 (Interaction & Content)
+- **全域強制逐項提問 (Single-Question Interaction)**：最高度強化「一問一答」溝通模式。嚴禁合併問題，保證紀錄儀式感。
+- **執行力紀錄**：完成 2026-03-03 每日日誌，核心習慣全數達成。
+
+---
+
 ## [2026-02-26] - Core Skills & Sandbox Testing Fixes
 ### 系統穩定性與防呆 (System Resilience)
-- **預載範本優化 (Zero-Generation Warmup)**：重構 `/warmup` 腳本，改由內建 `_sample` 檔案群自動維持 Git 目錄結構並提供標準化配置範本。廢除開機時的動態生成與 `.gitkeep` 操作，進一步省下高昂的 Token 盲目消耗。
-- **環境補強與防呆 (Env Hardening)**：升級 `/warmup` 腳本，增強對缺失目錄的 `.gitkeep` 自動保護。修補配置檔 (週/月計畫) 生成邏輯，強制規範日期格式與 `- [ ]` Checkbox 生成。
-- **Token 消耗最佳化 (Lazy Loading)**：優化 `/warmup` 啟動工作流，導入 `skills-index.md` 延遲加載機制，系統只在需要時讀取對應技能檔案，減少逾 80% 的初始 Token 消耗。
+- **預載範本優化 (Zero-Generation Start)**：重構 `/start` 腳本，改由內建 `_sample` 檔案群自動維持 Git 目錄結構並提供標準化配置範本。廢除開機時的動態生成與 `.gitkeep` 操作，進一步省下高昂的 Token 盲目消耗。
+- **環境補強與防呆 (Env Hardening)**：升級 `/start` 腳本，增強對缺失目錄的 `.gitkeep` 自動保護。修補配置檔 (週/月計畫) 生成邏輯，強制規範日期格式與 `- [ ]` Checkbox 生成。
+- **Token 消耗最佳化 (Lazy Loading)**：優化 `/start` 啟動工作流，導入 `skills-index.md` 延遲加載機制，系統只在需要時讀取對應技能檔案，減少逾 80% 的初始 Token 消耗。
 - **效能防呆 (Fail-Safe)**：新增指令逾時與重複執行（超過2次）自動中斷機制，防止無限迴圈卡死。
 - **強制存檔驗證 (Persistent Save Check)**：於多輪問答或狀態轉換前，強制驗證實體 Markdown 檔案是否已確實寫入。
 
@@ -18,6 +49,7 @@
 - **忠實原文規範強化 (weekly-summarizer)**：重寫「深度生活回顧」條款，明確禁止 AI 自行添加評語、詮釋或情感渲染，要求嚴格引用日誌原文並標注日期。列出具體禁止語句範例，以防 AI 腦補行為重演。
 - **月報深度回顧統整規範 (monthly-reporter)**：新增「統整原則」條款，明確禁止以「W06...W07...W08」週次標籤流水拼接原文，要求將各週相關內容有機融合為自然段落。
 - **月報視覺化簡報格式 (monthly-visualizer)**：明訂 HTML 網頁之「深度生活回顧」每分類僅條列 3~5 條重點，供發表者現場補充；完整版保留於 Markdown 月報文件。
+- **個人與公開庫架構分離 (git-manager)**：新增 `liwen-sop.md` 保管個人雙分支存取流程。將 `git-manager.md` 重構為去個人化通用版，移除無關公開框架的操作，明確規範「開源同步 (Framework Sync)」僅於使用者要求「發行」時方才允許觸發。
 - **Token 優化 - HTML 格式確認步驟 (monthly-visualizer)**：新增「第零階段：格式確認」，在產出 HTML 前先詢問使用者偏好（A 條列重點式 / B 段落統整式），預設使用 A，避免因格式不明導致多次全量重寫。
 - **Token 優化 - 週報關鍵區塊讀取策略 (monthly-reporter)**：月報第一階段改為優先讀取 5 個關鍵 Section（執行評分、阻礙、獲益、金句、深度回顧），習慣熱點圖明細僅在需要時才讀取。
 - **Token 優化 - Skill 速查摘要 (skills-index)**：為所有 Skill 加入 📌 速查摘要行，包含核心流程與主要禁止規則，讓 Agent 在輕量情境下可跳過完整 Skill 文件讀取。
@@ -42,7 +74,7 @@
 
 ## [2026-02-26] - Navigation & UX Refinement
 ### 交互與導航優化 (Interaction/Nav)
-- 確立「明確指令原則」，移除模糊的自動觸發邏輯，改為引導式建議執行 `/warmup`。
+- 確立「明確指令原則」，移除模糊的自動觸發邏輯，改為引導式建議執行 `/start`。
 - 在 `.agent/instructions.md` 中實作「文件自動同步機制」，確保系統異動自動反映至文檔。
 - 新增「逾時自檢機制 (Timeout Self-Check)」：執行等待超過 5 秒時，Agent 必須主動診斷原因並回報。
 - 確立文件權責分離：將詳細日誌移至 `CHANGELOG.md`，README.md 僅保留最新動態。
