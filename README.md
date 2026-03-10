@@ -21,19 +21,28 @@
 
 ## 📂 系統架構 (Directory Structure)
 
-專案結構遵循模組化開發原則，並透過 Git 進行版本化管理：
+專案結構遵循**模組化封裝 (Skill Encapsulation)** 原則，所有邏輯與數據完整收納於 `.agent/skills/12-week-navigator/` 之中：
 
 ```bash
 .
-├── config/             # ⚙️ 配置層：定義戰略指標 (含 *_sample.md 範本)
-├── data/               # 📝 數據層：存放執行資產 (個人資料，已由 .gitignore 忽略)
-│   ├── daily/          # 基礎數據點與能量指標
-│   ├── weekly/         # 週度評分、失敗分析與資源匯整
-│   └── monthly/        # 月度戰略對比與成長紀實
-├── reports/            # 📊 呈現層：自動生成的互動式 HTML 報表
-├── sandbox/            # 🧪 隔離層：Skill 流程演練與全系統測試沙盒
-├── .agent/             # 🤖 邏輯層：Antigravity Agent 核心技能 (Skills) 與工作流
-├── CHANGELOG.md        # 📜 技術變更紀錄
+├── .agent/
+│   ├── instructions.md         # 🧠 AI 核心行為準則
+│   ├── workflows/
+│   │   └── 12-week-navigator.md  # 🚀 系統唯一旗艦入口（五大模組選單）
+│   └── skills/
+│       └── 12-week-navigator/    # 📦 完整封裝套件
+│           ├── SKILL.md          # 核心引擎與協定
+│           ├── logic/            # 模組邏輯：init, start, report-guide, habit-fixer, skill-tester
+│           ├── lib/
+│           │   └── ui-ux-pro-max/  # 🎨 視覺化引擎（內部依賴）
+│           ├── resources/
+│           │   └── samples/      # 配置範本 (config 初始化用)
+│           └── workspace/
+│               ├── config/       # ⚙️ 使用者戰略配置
+│               ├── data/         # 📝 執行數據 (daily/weekly/monthly)
+│               ├── reports/      # 📊 自動生成 HTML 報表
+│               └── sandbox/      # 🧪 隔離測試沙盒
+├── CHANGELOG.md
 └── README.md
 ```
 
@@ -45,7 +54,7 @@
 > **User**: 「幫我紀錄今日習慣。」  
 > **Antigravity**: 「好的，已讀取 `核心習慣.md`。今天飲水有過 3000ml 嗎？另外，今天給自己的『能量狀態』打幾分？(1-5)」  
 > **User**: 「有，全部達成，能量 4 分。今天領悟到 React Hook 的閉包原理。」  
-> **產出**: 自動在 `data/daily/` 生成包含能量指標與技術收穫的 Markdown 日誌。
+> **產出**: 自動在 `workspace/data/daily/` 生成包含能量指標與技術收穫的 Markdown 日誌。
 
 ### 場景 B：週日戰略評估 (Weekly Appraisal)
 > **User**: 「產出本週週報。」  
@@ -56,7 +65,7 @@
 ### 場景 C：月度視覺化演說 (Monthly Visualizer)
 > **User**: 「幫我產出 2 月份總結網頁。」  
 > **Antigravity**: 「分析本月數據完成。二月核心標語建議為『守護者進化』。正在將戰略進度條與進化對策卡片封裝至網頁中...」  
-> **產出**: 在 `reports/` 生成具備毛玻璃發光質感與 12 週進度勾稽的互動式 HTML 檔案。
+> **產出**: 在 `workspace/reports/` 生成具備毛玻璃發光質感與 12 週進度勾稽的互動式 HTML 檔案。
 
 ---
 
@@ -64,7 +73,6 @@
 
 ### 1. 環境需求 (Prerequisites)
 在開始之前，請確保您的系統已安裝以下工具：
-- **Python 3.10+**: 用於執行系統同步與數據處理腳本。
 - **Git 2.x**: 基礎版本控制工具。
 - **GitHub CLI (gh)**: **強烈建議**，用於讓 Agent 自動發送及管理 Pull Request。
 - **現代化瀏覽器**: 用於渲染互動式 HTML 報表。
@@ -76,82 +84,87 @@ git clone https://github.com/<YOUR_USERNAME>/12-week-navigator.git
 cd 12-week-navigator
 
 # 登入 GitHub CLI (以啟用自動 PR 功能)
-# 若尚未安裝，請執行：brew install gh (Mac) 或參閱官方文件
 gh auth login
 ```
 
 ### 3. 初始化計畫 (Config Setup)
-開始之前，請更新以下 Markdown 配置檔，建立您的戰略目標：
-- **`config/核心習慣.md`**: 定義每日基礎動作 (KPIs)。
-- **`config/週計畫.md`**: 定義本週必須完成的 3-5 項關鍵任務。
-- **`config/月計畫.md`**: 定義當月要攻克的戰略里程碑。
+複製 `resources/samples/` 中的範本到 `workspace/config/`：
+```bash
+cp .agent/skills/12-week-navigator/resources/samples/核心習慣_sample.md \
+   .agent/skills/12-week-navigator/workspace/config/核心習慣.md
+# 同樣複製 週計畫_sample.md 與 月計畫_sample.md
+```
+接著編輯這三份配置檔，填入您的個人目標。
 
-### 4. 開始導航 (First Run & Setup AI)
-在新環境中，您需要讓 AI 助理 (Agent) 進入本系統的運作狀態。
-如果您詢問「如何開始」，Agent 將會建議您執行以下指令：
-> **「執行 /warmup」**
+### 4. 開始導航 (First Run)
+在您的 AI 助理 (Antigravity / Cursor Agent 等) 中輸入：
 
-**Agent 將會自動完成以下初始化：**
-- 讀取 `.agent/instructions.md` 定位核心原則。
-- 載入 `.agent/skills/` 所有的自動化技能。
-- 偵測數據現狀，告知您目前計畫的進度位置。
+> **「執行 /12-week-navigator」**
 
----
-
-## �️ 指令速查 (Command Reference)
-
-您可以透過以下自然語言指令引導 **Antigravity** 執行核心任務：
-
-- **啟動與初始化**：`執行 /warmup` (新環境或更換設備後必跑)
-- **安全測試模式**：`進入測試模式` (啟動隔離沙盒，進行流程模擬)
-- **日常習慣紀錄**：`紀錄今日習慣`
-- **週度評分總結**：`產出本週週報`
-- **月度視覺網頁**：`執行月度總結並產出網頁`
-- **Git 自動發 PR**：`執行 git 同步並發送 PR`
+系統將呈現五大功能模組選單，引導您開始第一次紀錄。
 
 ---
 
-## �🔥 核心特性與優勢 (Core Features)
+## 🗺️ 指令速查 (Command Reference)
+
+所有功能透過 **單一旗艦入口** 進行導航：
+
+| 輸入指令 | 功能 |
+| :--- | :--- |
+| `執行 /12-week-navigator` | 開啟五大模組選單（推薦入口）|
+| `執行初始化` / `Init` | 環境檢查、目錄建立、格式校準 |
+| `啟動導航` / `Start` | 喚醒 Agent、查看進度、今日行動 |
+| `紀錄今天` | 啟動每日習慣紀錄 |
+| `產出週報` | 生成本週週度復盤報告 |
+| `執行月度總結` | 生成月度戰略報告 |
+| `產出網頁` / `視覺化` | 生成互動式 HTML 月報網頁 |
+| `補記` / `Fix` | 補填過去日期的遺漏紀錄 |
+| `啟動測試` / `Test` | 進入隔離沙盒測試模式 |
+
+---
+
+## 🔥 核心特性與優勢 (Core Features)
 
 ### 1. 互動式熱點與能量追蹤
 系統不僅引導習慣紀錄，更關注 **「當下狀態」**。透過能量情緒指標與資源工具紀錄，讓日誌同時具備「狀態監測器」與「知識採集器」的功能。
 
 ### 2. 失敗學分析 (Action Bias Analysis)
-針對「未達成」的計畫，Agent 會主動啟動「阻礙分析」流程。區分是環境因素、時間分配還是心理壓力，並在週報中自動提出下週的 **「進化對策卡片」**。
+針對「未達成」的計畫，Agent 會主動啟動「阻礙分析」流程，並在週報中自動提出 **「進化對策卡片」**。
 
 ### 3. 戰略進度勾稽 (Strategic Alignment)
-在月報中，系統會自動比對 12 週的總計畫里程碑，並呈現 **「12 週總進度條」**。確保您在關注當下成長時，也能精準掌握在長期戰略中的具體位置。
+在月報中，系統會自動比對 12 週的總計畫里程碑，確保您在關注當下成長時，也能精準掌握長期位置。
 
-### 4. 隔離測試沙盒 (Sandbox Safety)
-內建 **`sandbox/` 隔離測試體系**。您可以隨時進入「測試模式」，在不污染真實歷史數據的情況下，演練任何對話流程、模擬極端數據或預覽不同的視覺呈現。
+### 4. JIT 階層化校驗 (Just-In-Time Validation)
+採用「即時觸發」數據校驗策略：**週報時只掃當週 7 天、月報時只掃當月週報、網頁時只確認月報 MD**。極大化 Token 節省效率。
 
-### 5. Git 自動化管理 (Git Manager Skill)
-內建標準化 Git 工作法。Agent 會自動建立開發分支、撰寫**繁體中文條列式 Commit**，並透過 GitHub CLI 自動發送 Pull Request (PR)。
+### 5. 三模式隔離測試沙盒 (Sandbox Safety)
+內建 **A / B / C 三模式**測試門戶，在 `workspace/sandbox/` 中安全演練，絕不污染正式數據。
+
+### 6. Git 自動化管理 (Git Manager Skill)
+內建標準化 Git 工作法，Agent 自動建立分支、撰寫**繁體中文條列式 Commit**，並透過 GitHub CLI 自動發送 Pull Request。
 
 ---
 
 ## 💻 技術棧 (Technology Stack)
 
-本系統追求極致的前端體驗與數據的可攜性：
 - **邏輯引擎**: AI Agent (基於 Antigravity 核心技能模組)
 - **視覺化**: React 18 / Tailwind CSS / Framer Motion / Lucide Icons (全 CDN 載入，零 Node.js 依賴)
-- **版本控制**: Git / GitHub CLI (用於自動化 PR 流程)
-- **資料格式**: 純粹 Markdown 與 YAML (Git-friendly，資料完全自主掌控)
+- **版本控制**: Git / GitHub CLI
+- **資料格式**: 純粹 Markdown (Git-friendly，資料完全自主掌控)
 
 ---
 
-## 📈 實戰成果範例 (範例月份：[核心標語])
+## 📈 實戰成果範例
 
 - **月平均執行分**: XX.X% (Efficiency Rating)
 - **核心標語**: [當月總結標語]
 - **關鍵核心獲益**: [獲益項目 A]、[獲益項目 B]、[獲益項目 C]
-- **視覺呈現**: [查看演示報告範本](./data/monthly/data_sample.md)
 
 ---
 
-## � 版本說明 (Release Notes)
+## 📦 版本說明 (Release Notes)
 
-目前版本：**v2.0-framework** 
-本專案已實現「數據與框架分離」，您可以放心 Fork 使用。最新的系統優化（包含指令防呆、Token 節省技術、多維度月報引擎等）已全面裝載。
+目前版本：**v2.1-flagship**  
+本版本實現「完整模組化封裝 (Skill Encapsulation)」，所有邏輯、數據、視覺引擎收納於單一套件包。新增 JIT 校驗機制與三模式沙盒。您可以放心 Fork 使用。
 
 👉 [查看完整技術變更細節 (Full Changelog)](./CHANGELOG.md)
